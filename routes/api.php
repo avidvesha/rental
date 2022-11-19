@@ -37,8 +37,8 @@ Route::middleware('auth:sanctum', 'abilities:admin')->group(function() {
     Route::post('admin/logout', [AdminController::class, 'logout']);
     Route::get('admin/details', [AdminController::class, 'userDetails']);
     Route::resource('cars', CarController::class)->except('index', 'show');
-    Route::resource('/rent', RentController::class)->except('store', 'update');
-    Route::resource('/payment', PaymentController::class)->except('store', 'update');
+    Route::resource('/rents', RentController::class)->except('store', 'update');
+    Route::resource('/payments', PaymentController::class)->except('store', 'update');
   });
 
 Route::post('user/register', [UserController::class, 'register']);
@@ -53,9 +53,9 @@ Route::middleware('auth:sanctum', 'abilities:frontuser')->group(function() {
 });
 
 Route::middleware('auth:sanctum')->group(function() {
+  Route::resource('cars', CarController::class)->except('store', 'update', 'delete');
+  Route::resource('/rents', RentController::class)->except('index', 'update', 'delete');
+  Route::resource('/payments', PaymentController::class)->except('index', 'update', 'delete');
   // Route::get('/cars', [CarController::class, 'index']);
   // Route::get('/cars/{car}', [CarController::class, 'show']);
-  Route::resource('cars', CarController::class)->except('store', 'update', 'delete');
-  Route::resource('/rent', RentController::class)->except('index', 'update');
-  Route::resource('/payment', PaymentController::class)->except('index', 'update', 'delete');
 });
